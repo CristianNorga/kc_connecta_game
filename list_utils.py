@@ -43,3 +43,24 @@ def transpose(matrix):
         result.append(nth_elements(matrix, i))
 
     return result
+
+def displace(list, distance, fill=None):
+    if distance == 0:
+        return list
+
+
+    if distance > 0:
+        filling = [fill] * distance
+        return (filling + list)[:-distance]
+
+    filling = [fill] * abs(distance)
+    return (list + filling)[abs(distance):]
+
+def displace_matrix(matrix, fill=None):
+    return [displace(matrix[i], i - 1, fill) for i in range(len(matrix))]
+
+def reverse_list(list):
+    return list[::-1]
+
+def reverse_matrix(matrix):
+    return [reverse_list(row) for row in matrix]

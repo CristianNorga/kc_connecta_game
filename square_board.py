@@ -33,7 +33,10 @@ class SquareBoard():
 
     # Detectra victorias
     def is_victory(self, char):
-        return self._any_vertical_victory(char) or self._any_horizontal_victory(char) or self._any_rising_victory(char) or self._any_sinking_victory(char)
+        return self._any_vertical_victory(char) \
+            or self._any_horizontal_victory(char) \
+            or self._any_sinking_victory(char) \
+            or self._any_rising_victory(char)
 
     def _any_vertical_victory(self, char):
         result = False
@@ -48,11 +51,23 @@ class SquareBoard():
 
         return sb_temp._any_vertical_victory(char)
 
-    def _any_rising_victory(self, char):
-        return False
-
     def _any_sinking_victory(self, char):
-        return False
+        columns_lists = self.columns_as_lists()
+
+        d_matrix = displace_matrix(columns_lists)
+
+        temp = SquareBoard().fromList(d_matrix)
+
+        return temp._any_horizontal_victory(char)
+    
+    def _any_rising_victory(self, char):
+        columns_lists = self.columns_as_lists()
+
+        r_matrix = reverse_matrix(columns_lists)
+
+        temp = SquareBoard().fromList(r_matrix)
+
+        return temp._any_sinking_victory(char)
 
 
     # dunders
