@@ -33,7 +33,8 @@ def test_sinking_victory():
                                             ['x', 'x', 'o', None, ],
                                             ['o', 'o', None, None, ],
                                             ['o', 'x', None, None, ],
-                                            ['x', None, None, None, ]])
+                                            # ['x', None, None, None, ]
+                                            ])
     assert sinking_victory.is_victory('o')
     assert sinking_victory.is_victory('x') == False
 
@@ -42,8 +43,8 @@ def test_rising_victory():
     rising_victory = SquareBoard.fromList([['x', 'o', None, None, ],
                                            ['o', 'x', None, None, ],
                                            ['x', 'o', 'x', 'o', ],
-                                           ['x', 'o', 'o', 'x', ],
-                                           ['o', 'x', 'o', None, ]
+                                           ['x', 'o', None, None, ],
+                                        #    ['o', 'x', 'o', None, ]
                                            ])
     assert rising_victory.is_victory('x')
     assert rising_victory.is_victory('o') == False
