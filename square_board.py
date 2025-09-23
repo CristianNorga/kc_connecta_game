@@ -8,24 +8,24 @@ class SquareBoard():
     """
 
     @classmethod
-    def fromList(cls, list_of_lists):
+    def fromList(cls, list_of_lists) -> 'SquareBoard':
         """
         Transforma una lista de listas en una list de LinearBoard
         """
         board = cls()
-        board._columns = list(map(lambda element: LinearBoard.fromList(element), list_of_lists) )
+        board._columns = list(map(lambda element: LinearBoard.fromList(element), list_of_lists))
         return board
 
-    def __init__(self):
-        self._columns = [LinearBoard() for i in range(BOARD_LENGTH)]
+    def __init__(self) -> None:
+        self._columns: list[LinearBoard] = [LinearBoard() for i in range(BOARD_LENGTH)]
 
-    def columns_as_lists(self):
+    def columns_as_lists(self) -> list[list]:
         return [col.as_list() for col in self._columns]
     
-    def columns_as_linear_board(self):
+    def columns_as_linear_board(self) -> list[LinearBoard]:
         return self._columns
     
-    def is_full(self):
+    def is_full(self) -> bool:
         """
         True si todos los LinearBoards están llenos
         """
@@ -35,26 +35,26 @@ class SquareBoard():
         return result
 
     # Detectra victorias
-    def is_victory(self, char):
+    def is_victory(self, char) -> bool:
         return self._any_vertical_victory(char) \
             or self._any_horizontal_victory(char) \
             or self._any_sinking_victory(char) \
             or self._any_rising_victory(char)
 
-    def _any_vertical_victory(self, char):
+    def _any_vertical_victory(self, char) -> bool:
         result = False
         for lb in self._columns:
             result = result or lb.is_victory(char)
         return result
 
-    def _any_horizontal_victory(self, char):
+    def _any_horizontal_victory(self, char) -> bool:
         transposed = transpose(self.columns_as_lists())
 
         sb_temp = SquareBoard().fromList(transposed)
 
         return sb_temp._any_vertical_victory(char)
 
-    def _any_sinking_victory(self, char):
+    def _any_sinking_victory(self, char) -> bool:
         columns_lists = self.columns_as_lists()
 
         d_matrix = displace_matrix(columns_lists)
@@ -63,7 +63,7 @@ class SquareBoard():
 
         return temp._any_horizontal_victory(char)
     
-    def _any_rising_victory(self, char):
+    def _any_rising_victory(self, char) -> bool:
         columns_lists = self.columns_as_lists()
 
         r_matrix = reverse_matrix(columns_lists)
@@ -72,7 +72,6 @@ class SquareBoard():
 
         return temp._any_sinking_victory(char)
 
-
     # dunders
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'{self.__class__}:{self._columns}'

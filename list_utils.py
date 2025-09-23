@@ -1,13 +1,13 @@
-def find_one(list, needle):
+def find_one(list, needle) -> bool:
     return find_n(list, needle, 1)
 
-def find_n(list, needle, n):
+def find_n(list, needle, n) -> bool:
     if n < 0:
         return False
     
     return list.count(needle) >= n
 
-def find_streak(list, needle, n):
+def find_streak(list, needle, n) -> bool:
     if n < 1:
         return False
 
@@ -22,13 +22,13 @@ def find_streak(list, needle, n):
 
     return False
     
-def first_elements(matrix):
+def first_elements(matrix) -> list:
     return nth_elements(matrix, 0)
 
-def nth_elements(matrix, n):
+def nth_elements(matrix, n) -> list:
     return [row[n] for row in matrix if len(row) > n]
 
-def transpose(matrix):
+def transpose(matrix) -> list:
     result = []
     
     if len(matrix) <= 0:
@@ -44,7 +44,7 @@ def transpose(matrix):
 
     return result
 
-def displace(list, distance, fill=None):
+def displace(list, distance, fill=None) -> list:
     if distance == 0:
         return list
 
@@ -56,11 +56,11 @@ def displace(list, distance, fill=None):
     filling = [fill] * abs(distance)
     return (list + filling)[abs(distance):]
 
-def displace_matrix(matrix, fill=None):
+def displace_matrix(matrix, fill=None) -> list:
     return [displace(matrix[i], i - 1, fill) for i in range(len(matrix))]
 
-def reverse_list(list):
+def reverse_list(list) -> list:
     return list[::-1]
 
-def reverse_matrix(matrix):
+def reverse_matrix(matrix) -> list:
     return [reverse_list(row) for row in matrix]
