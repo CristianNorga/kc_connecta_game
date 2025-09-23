@@ -22,6 +22,9 @@ class SquareBoard():
     def columns_as_lists(self):
         return [col.as_list() for col in self._columns]
     
+    def columns_as_linear_board(self):
+        return self._columns
+    
     def is_full(self):
         """
         True si todos los LinearBoards están llenos
