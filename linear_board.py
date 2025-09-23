@@ -15,7 +15,7 @@ class LinearBoard():
     return self._column
 
   def is_full(self):
-    return len(self._column) >= BOARD_LENGTH
+    return len(self._column) >= BOARD_LENGTH and all(map(lambda x: x != None, self._column))
 
   def is_victory(self, user_notation):
     return find_streak(self._column, user_notation, VICTORY_STRIKE)
