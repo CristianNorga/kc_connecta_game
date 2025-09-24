@@ -33,6 +33,10 @@ class SquareBoard():
         for lb in self._columns:
             result = result and lb.is_full()
         return result
+    
+    # Modifica el tablero
+    def add(self, column_index: int, user_notation) -> None:
+        self._columns[column_index].add(user_notation)
 
     # Detectra victorias
     def is_victory(self, char) -> bool:
@@ -75,3 +79,9 @@ class SquareBoard():
     # dunders
     def __repr__(self) -> str:
         return f'{self.__class__}:{self._columns}'
+    
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, self.__class__):
+            return False
+        
+        return self.columns_as_lists() == other.columns_as_lists()

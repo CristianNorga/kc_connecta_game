@@ -10,6 +10,20 @@ def test_empty_board():
     assert board.is_victory('o') == False
     assert board.is_victory('x') == False
 
+def test_add_tokens_to_board():
+    board = SquareBoard()
+
+    board.add(0, 'x')
+    board.add(0, 'o')
+    board.add(1, 'x')
+
+    expected = SquareBoard.fromList([['x', 'o', None, None],
+                                     ['x', None, None, None],
+                                     [None, None, None, None],
+                                     [None, None, None, None]])
+
+    assert board == expected
+
 def test_vertical_victory():
     vertical = SquareBoard.fromList([['o', 'x', 'x', 'x',],
                                      [None, None, None, None, ],
