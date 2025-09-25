@@ -1,3 +1,4 @@
+from board_utils import _is_within_column_range, _is_non_full_column, _is_int
 from oracle import BaseOracle, ColumnClassification, ColumnRecommendation
 from square_board import SquareBoard
 
@@ -21,3 +22,18 @@ class Player:
         if recommendation is None:
             raise Exception("No hay columnas disponibles")
         return recommendation
+    
+class HumanPlayer(Player):
+
+    def __init__(self, name, char) -> None:
+        super().__init__(name, char)
+
+    def _ask_oracle(self, board) -> tuple[ColumnRecommendation, None]:
+        while True:
+
+            raw = input('Select a column: ')
+
+            if _is_int(raw) and _is_within_column_range(board, int(raw)) and _is_non_full_column(board, int(raw)):
+
+                position = int(raw)
+                return (ColumnRecommendation(position, None), None)

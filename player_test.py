@@ -21,6 +21,3 @@ def test_play():
 
     player.play(before)
     assert before == after
-
-
-
