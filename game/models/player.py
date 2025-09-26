@@ -3,10 +3,22 @@ from game.models.oracle import BaseOracle, ColumnClassification, ColumnRecommend
 from game.models.square_board import SquareBoard
 
 class Player:
-    def __init__(self, name, char, oracle: BaseOracle) -> None:
+    def __init__(self, name, char = None, opponent = None, oracle: BaseOracle=BaseOracle()) -> None:
         self.name = name
         self.char = char
         self._oracle = oracle
+        self.opponent = opponent
+
+    @property
+    def opponent(self):
+        return self._opponent
+
+    @opponent.setter
+    def opponent(self, other):
+        self._opponent = other
+        if other != None:
+            assert other.char != self.char
+            other._opponent = self
 
     def play(self, board: SquareBoard) -> None:
         recommendetions = self._oracle.get_recommendation(board, self)
@@ -25,7 +37,7 @@ class Player:
     
 class HumanPlayer(Player):
 
-    def __init__(self, name, char) -> None:
+    def __init__(self, name, char = None) -> None:
         super().__init__(name, char)
 
     def _ask_oracle(self, board) -> tuple[ColumnRecommendation, None]:
