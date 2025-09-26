@@ -7,21 +7,20 @@ mi_juego/
 │   ├── models/
 │   │   ├── __init__.py
 │   │   ├── player.py      # Clase Player
-│   │   ├── enemy.py       # Clase Enemy
-│   │   ├── map.py         # Mapa / niveles
-│   │   └── inventory.py   # Inventario, ítems, etc.
+│   │   ├── oracle.py      # Clase Oracle
+│   │   ├── linear_board.py   # Línea de fichas
+│   │   └── square_board.py   # Tablero.
 │   │
 │   ├── views/
 │   │   ├── __init__.py
 │   │   ├── terminal_view.py  # Renderizado en consola
 │   │   ├── menu_view.py      # Menús y pantallas estáticas
-│   │   └── hud.py            # Barra de vida, mensajes, etc.
+│   │   └── input_handler.py     # Parsing de teclas / comandos
 │   │
 │   ├── controllers/
 │   │   ├── __init__.py
 │   │   ├── game_controller.py   # Controlador principal
-│   │   ├── menu_controller.py   # Controlador de menús
-│   │   └── input_handler.py     # Parsing de teclas / comandos
+│   │   └── match_controller.py   # Controlador de partidas
 │   │
 │   └── utils/
 │       ├── __init__.py
@@ -30,7 +29,8 @@ mi_juego/
 │
 ├── data/
 │   ├── maps/
-│   └── texts/
+│   ├── texts/
+│   └── settings.py
 ├── assets/
 │   └── sounds/
 └── tests/
