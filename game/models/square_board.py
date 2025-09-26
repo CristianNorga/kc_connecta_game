@@ -1,6 +1,6 @@
-from linear_board import LinearBoard
-from settings import BOARD_LENGTH
-from list_utils import *
+from game.models.linear_board import LinearBoard
+from data.settings import BOARD_LENGTH
+from game.utils.list_utils import transpose, displace_matrix, reverse_matrix
 
 class SquareBoard():
     """

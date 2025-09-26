@@ -1,5 +1,5 @@
-from settings import BOARD_LENGTH, VICTORY_STRIKE
-from list_utils import find_streak
+from data.settings import BOARD_LENGTH, VICTORY_STRIKE
+from game.utils.list_utils import find_streak
 
 class LinearBoard():
   @classmethod

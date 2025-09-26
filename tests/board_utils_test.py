@@ -1,5 +1,5 @@
-from board_utils import _is_non_full_column, _is_within_column_range, _is_int
-from square_board import SquareBoard
+from game.utils.board_utils import _is_non_full_column, _is_within_column_range, _is_int
+from game.models.square_board import SquareBoard
 
 def test_valid_column():
     board = SquareBoard.fromList([['x', None, None, None, ],

@@ -1,7 +1,7 @@
 # funciones de validación de índice de columna
 
-from square_board import SquareBoard
-from settings import BOARD_LENGTH
+from game.models.square_board import SquareBoard
+from data.settings import BOARD_LENGTH
 
 
 def _is_non_full_column(board: SquareBoard, num: int) -> bool:

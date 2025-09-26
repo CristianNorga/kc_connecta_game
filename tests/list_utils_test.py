@@ -1,6 +1,6 @@
 import pytest
 
-from list_utils import *
+from game.utils.list_utils import *
 
 def test_find_one():
     needle = 1

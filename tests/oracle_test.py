@@ -1,5 +1,5 @@
-from oracle import *
-from square_board import SquareBoard
+from game.models.oracle import *
+from game.models.square_board import SquareBoard
 
 def test_base_oracle():
     board = SquareBoard.fromList([[None, None, None, None],

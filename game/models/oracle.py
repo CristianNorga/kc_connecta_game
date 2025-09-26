@@ -1,4 +1,4 @@
-from square_board import SquareBoard
+from game.models.square_board import SquareBoard
 from enum import Enum, auto
 
 class ColumnClassification(Enum):

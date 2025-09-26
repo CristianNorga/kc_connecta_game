@@ -1,6 +1,6 @@
-from square_board import SquareBoard
-from oracle import BaseOracle
-from player import Player
+from game.models.square_board import SquareBoard
+from game.models.oracle import BaseOracle
+from game.models.player import Player
 
 def test_play():
     """

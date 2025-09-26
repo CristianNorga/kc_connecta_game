@@ -1,6 +1,6 @@
 import pytest
-from linear_board import *
-from settings import BOARD_LENGTH, VICTORY_STRIKE
+from game.models.linear_board import *
+from data.settings import BOARD_LENGTH, VICTORY_STRIKE
 
 def test_empty_board():
     empty = LinearBoard()

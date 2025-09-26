@@ -1,6 +1,6 @@
 import pytest
 
-from square_board import *
+from game.models.square_board import SquareBoard
 
 def test_empty_board():
 
