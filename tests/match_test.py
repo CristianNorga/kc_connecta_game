@@ -1,6 +1,6 @@
 import pytest
 from game.models.player import Player
-from game.controllers.match import Match
+from game.controllers.match_controller import Match
 
 xavier = Player('Dr Xavier')
 otto = Player('Dr Octopus')

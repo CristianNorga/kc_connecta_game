@@ -1,7 +1,9 @@
 
 
+from game.models.player import Player
+
 class Match:
-    def __init__(self, player1, player2):
+    def __init__(self, player1, player2) -> None:
         player1.char = 'x'
         player2.char = 'o'
         player1.opponent = player2
@@ -10,17 +12,14 @@ class Match:
         assert (player1.opponent is not None) and (player2.opponent is not None), "Players are required to have an opponent for recommendations"
 
     @property 
-    def next_player(self):
+    def next_player(self) -> Player:
         next = self._round_robbin[0]
         self._round_robbin.reverse()
         return next
     
-    def get_player(self, char):
+    def get_player(self, char) -> Player:
         return self._players[char]
 
-    def is_match_over(self):
-        """
-        Ask the user if it wants another match
-        """
+    def is_match_over(self) -> bool:
         answer = input('Would you like to play another match? (Y/N) ').upper()
         return (answer != 'Y')
