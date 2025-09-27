@@ -19,6 +19,14 @@ class Match:
     
     def get_player(self, char) -> Player:
         return self._players[char]
+    
+    def get_winner(self, board):
+        if board.is_victory('x') :
+            return self.get_player('x')
+        elif board.is_victory('o') :
+            return self.get_player('o')
+        else:
+            return None
 
     def is_match_over(self) -> bool:
         answer = input('Would you like to play another match? (Y/N) ').upper()

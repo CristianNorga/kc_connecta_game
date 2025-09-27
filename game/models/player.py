@@ -8,6 +8,7 @@ class Player:
         self.char = char
         self._oracle = oracle
         self.opponent = opponent
+        self.last_move = None
 
     @property
     def opponent(self):
@@ -20,13 +21,19 @@ class Player:
             assert other.char != self.char
             other._opponent = self
 
-    def play(self, board: SquareBoard) -> None:
-        recommendetions = self._oracle.get_recommendation(board, self)
+    def play(self, board: SquareBoard):
+        (best, recommendations) = self._ask_oracle(board)
+        self._play_on(board, best.index)
 
-        choice = self._choose(recommendetions)
+    def _play_on(self, board, position):
+        board.add(position, self.char)
+        self.last_move = position
 
-        board.add(choice.index, self.char)
+    def _ask_oracle(self, board):
+        recommendations = self._oracle.get_recommendation(board, self)
+        best = self._choose(recommendations)
 
+        return (best, recommendations)
 
     def _choose(self, recommendations: list[ColumnRecommendation]) -> ColumnRecommendation:
         recommendation = next(filter(lambda r: r.classification != ColumnClassification.FULL, recommendations), None)

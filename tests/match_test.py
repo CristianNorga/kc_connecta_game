@@ -1,6 +1,7 @@
 import pytest
 from game.models.player import Player
 from game.controllers.match_controller import Match
+from game.models.square_board import SquareBoard
 
 xavier = Player('Dr Xavier')
 otto = Player('Dr Octopus')
@@ -19,4 +20,17 @@ def test_next_player_is_round_robbin():
     p1 = t.next_player
     p2 = t.next_player
     assert p1 != p2
+
+def test_get_winner():
+    t = Match(xavier, otto)
+    win_x = SquareBoard.fromList(
+        [
+            ['x', 'o', None, None, ],
+            ['o', 'x', None, None, ],
+            ['x', 'o', 'x', 'o', ],
+            ['x', 'o', None, None, ],
+        ]
+    )
+    assert t.get_winner(win_x) != None
+    assert t.get_winner(win_x) == xavier
 

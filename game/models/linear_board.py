@@ -7,10 +7,27 @@ class LinearBoard():
       board = cls()
       board._column = list
       return board
-
+  
+  # Dunders
   def __init__(self) -> None:
     self._column = [None for i in range(BOARD_LENGTH)]
 
+  def __len__(self) -> int:
+    return len(self._column)
+  
+  def __repr__(self):
+    return f'<{self.__class__}: {self._column}>'
+  
+  def __eq__(self, other):
+    if not isinstance(other, self.__class__):
+        return False
+    else:
+        return self._column == other._column
+
+  def __hash__(self):
+    return hash(self._column)
+  
+  # Methods
   def as_list(self) -> list:
     return self._column
 
@@ -27,7 +44,3 @@ class LinearBoard():
 
   def is_tie(self, user1_notation, user2_notation) -> bool:
     return self.is_victory(user1_notation) == False and self.is_victory(user2_notation) == False
-  
-  # Dunders
-  def __len__(self) -> int:
-    return len(self._column)
