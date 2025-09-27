@@ -1,5 +1,3 @@
-# funciones de validación de índice de columna
-
 from game.models.square_board import SquareBoard
 from data.settings import BOARD_LENGTH
 

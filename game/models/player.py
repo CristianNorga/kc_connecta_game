@@ -21,15 +21,15 @@ class Player:
             assert other.char != self.char
             other._opponent = self
 
-    def play(self, board: SquareBoard):
+    def play(self, board: SquareBoard) -> None:
         (best, recommendations) = self._ask_oracle(board)
         self._play_on(board, best.index)
 
-    def _play_on(self, board, position):
+    def _play_on(self, board, position) -> None:
         board.add(position, self.char)
         self.last_move = position
 
-    def _ask_oracle(self, board):
+    def _ask_oracle(self, board) -> tuple[ColumnRecommendation, list[ColumnRecommendation]]:
         recommendations = self._oracle.get_recommendation(board, self)
         best = self._choose(recommendations)
 
@@ -43,16 +43,13 @@ class Player:
         return recommendation
     
 class HumanPlayer(Player):
-
-    def __init__(self, name, char = None) -> None:
+    def __init__(self, name, char = None, view=None) -> None:
         super().__init__(name, char)
+        self.view = view
 
     def _ask_oracle(self, board) -> tuple[ColumnRecommendation, None]:
         while True:
-
-            raw = input('Select a column: ')
-
+            raw = self.view.ask_column() if self.view else input('Selecciona una columna: ')
             if _is_int(raw) and _is_within_column_range(board, int(raw)) and _is_non_full_column(board, int(raw)):
-
                 position = int(raw)
                 return (ColumnRecommendation(position, None), None)

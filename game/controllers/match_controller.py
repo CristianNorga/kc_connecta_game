@@ -20,7 +20,7 @@ class Match:
     def get_player(self, char) -> Player:
         return self._players[char]
     
-    def get_winner(self, board):
+    def get_winner(self, board) -> Player | None:
         if board.is_victory('x') :
             return self.get_player('x')
         elif board.is_victory('o') :
