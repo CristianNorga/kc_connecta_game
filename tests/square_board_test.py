@@ -1,5 +1,3 @@
-import pytest
-
 from game.models.square_board import SquareBoard
 
 def test_empty_board():
@@ -17,10 +15,15 @@ def test_add_tokens_to_board():
     board.add(0, 'o')
     board.add(1, 'x')
 
-    expected = SquareBoard.fromList([['x', 'o', None, None],
-                                     ['x', None, None, None],
-                                     [None, None, None, None],
-                                     [None, None, None, None]])
+    expected = SquareBoard.fromList(
+        [
+            ['x', 'o', None, None, None],
+            ['x', None, None, None, None],
+            [None, None, None, None, None],
+            [None, None, None, None, None],
+            [None, None, None, None, None]
+        ]
+    )
 
     assert board == expected
 
