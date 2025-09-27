@@ -1,3 +1,4 @@
+import random
 from game.utils.board_utils import _is_within_column_range, _is_non_full_column, _is_int
 from game.models.oracle import BaseOracle, ColumnClassification, ColumnRecommendation
 from game.models.square_board import SquareBoard
@@ -40,7 +41,7 @@ class Player:
 
         if recommendation is None:
             raise Exception("No hay columnas disponibles")
-        return recommendation
+        return random.choice(recommendations)
     
 class HumanPlayer(Player):
     def __init__(self, name, char = None, view=None) -> None:
