@@ -17,11 +17,15 @@ def test_valid_column():
 
 def test_is_non_full_column():
 
-    board = SquareBoard.fromList([['x', None, None, None, ],
-                                  ['x', 'o', 'x', 'o', ],
-                                  ['o', 'o', 'x', 'x', ],
-                                  ['o', None, None, None, ]])
-                                  
+    board = SquareBoard.fromList(
+        [
+            ['x', None, None, None, ],
+            ['x', 'o', 'x', 'o', ],
+            ['o', 'o', 'x', 'x', ],
+            ['o', None, None, None, ]
+        ]
+    )
+
     assert _is_non_full_column(board,0)
     assert _is_non_full_column(board, 1) == False
     assert _is_non_full_column(board,2) == False

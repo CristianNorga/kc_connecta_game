@@ -1,4 +1,5 @@
-from game.models.oracle import *
+from game.models.oracle.base import *
+from game.models.oracle.smart import SmartOracle
 from game.models.square_board import SquareBoard
 from game.models.player import Player
 from game.utils.board_utils import BOARD_LENGTH

@@ -1,6 +1,6 @@
 import random
 from game.utils.board_utils import _is_within_column_range, _is_non_full_column, _is_int
-from game.models.oracle import BaseOracle, ColumnClassification, ColumnRecommendation
+from game.models.oracle.base import BaseOracle, ColumnClassification, ColumnRecommendation
 from game.models.square_board import SquareBoard
 from game.utils.list_utils import all_same
 

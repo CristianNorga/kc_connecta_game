@@ -1,6 +1,7 @@
 from game.models.linear_board import LinearBoard
 from data.settings import BOARD_LENGTH
-from game.utils.list_utils import transpose, displace_matrix, reverse_matrix
+from game.utils.list_utils import collapse_matrix, replace_all_in_matrix, transpose, displace_matrix, reverse_matrix
+from game.utils.string_utils import explode_list_of_strings
 
 class SquareBoard():
     @classmethod
@@ -9,6 +10,20 @@ class SquareBoard():
         board._columns = list(map(lambda element: LinearBoard.fromList(element), list_of_lists))
         return board
     
+    @classmethod
+    def fromBoardCode(cls, board_code) -> 'SquareBoard':
+        return cls.fromBoardRawCode(board_code.raw_code)
+
+    @classmethod
+    def fromBoardRawCode(cls, board_raw_code) -> 'SquareBoard':
+        list_of_strings = board_raw_code.split("|")
+
+        matrix = explode_list_of_strings(list_of_strings)
+
+        matrix = replace_all_in_matrix(matrix, '.', None)
+
+        return cls.fromList(matrix)
+
     # dunders
     def __init__(self) -> None:
         self._columns: list[LinearBoard] = [LinearBoard() for i in range(BOARD_LENGTH)]
@@ -39,6 +54,9 @@ class SquareBoard():
         for lb in self._columns:
             result = result and lb.is_full()
         return result
+    
+    def as_code(self):
+        return BoardCode(self)
     
     def add(self, column_index: int, user_notation) -> None:
         self._columns[column_index].add(user_notation)
@@ -79,3 +97,24 @@ class SquareBoard():
         temp = SquareBoard().fromList(r_matrix)
 
         return temp._any_sinking_victory(char)
+    
+class BoardCode:
+
+    def __init__(self, board: SquareBoard) -> None:
+        self._raw_code = collapse_matrix(board.columns_as_lists())
+
+    @property
+    def raw_code(self) -> str:
+        return self._raw_code
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, self.__class__):
+            return False
+        else:
+            return self.raw_code == other.raw_code
+
+    def __hash__(self) -> int:
+        return hash(self.raw_code)
+
+    def __repr__(self) -> str:
+        return f'{self.__class__}: {self.raw_code}'

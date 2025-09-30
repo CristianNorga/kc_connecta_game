@@ -1,7 +1,8 @@
 
 from enum import Enum, auto
 
-from game.models.oracle import SmartOracle, BaseOracle
+from game.models.oracle.base import BaseOracle
+from game.models.oracle.smart import SmartOracle
 from game.models.square_board import SquareBoard
 from game.controllers.match_controller import Match
 from game.models.player import Player, HumanPlayer

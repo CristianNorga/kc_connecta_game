@@ -1,7 +1,5 @@
-import pytest
-
 from game.utils.list_utils import *
-from game.models.oracle import ColumnRecommendation, ColumnClassification
+from game.models.oracle.base import ColumnRecommendation, ColumnClassification
 
 def test_find_one():
     needle = 1
@@ -105,3 +103,36 @@ def test_all_same():
             ColumnRecommendation(0, ColumnClassification.MAYBE),
             ColumnRecommendation(0, ColumnClassification.WIN)
         ]) == False
+    
+def test_collapse_list():
+    assert collapse_list([]) == ''
+    assert collapse_list(['o', 'x', 'x', 'o']) == 'oxxo'
+    assert collapse_list(['x', 'x', None, None, None]) == 'xx...'
+
+
+def test_collapse_matrix():
+    assert collapse_matrix([]) == ''
+    assert collapse_matrix(
+        [
+            ['x', 'x', None],
+            ['o', 'x', 'x'],
+            ['o', None, None]
+        ]) == 'xx.|oxx|o..'
+
+
+def test_replace_all_in_list():
+    assert replace_all_in_list([None, 3, '546', 33, None], None, '#') == ['#', 3, '546', 33, '#']
+    assert replace_all_in_list([1, 2, 3, 4, 5], 'e', 42) == [1, 2, 3, 4, 5]
+    assert replace_all_in_list([], 34, 43) == []
+
+
+def test_replace_all_in_matrix():
+    assert replace_all_in_matrix(
+        [
+            [1, 2, 3, 'n', 'n', None],
+            [4, 5, 'n']
+        ], 'n', '#') == [[1, 2, 3, '#', '#', None], [4, 5, '#']]
+    assert replace_all_in_matrix([[None, None, 2, True], [4, 5, '#']], 'k', 42) == [[
+        None, None, 2, True],  [4, 5, '#']]
+    assert replace_all_in_matrix([], None, 7) == []
+    assert replace_all_in_matrix([[], []], None, 7) == [[], []]

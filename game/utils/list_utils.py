@@ -71,3 +71,26 @@ def all_same(l) -> bool:
                 same = False
                 break
         return same 
+    
+def collapse_list(l, empty = '.') -> str:
+    collapsed = ''
+    for elt in l:
+        if elt == None:
+            collapsed = collapsed + empty
+        else:
+            collapsed = collapsed + elt
+    return collapsed
+
+def collapse_matrix(m, empty='.', fence = '|') -> str:
+    collapsed = ''
+    for elt in m:
+        collapsed = collapsed + fence + collapse_list(elt, empty)
+    
+    return collapsed[1:]
+
+
+def replace_all_in_list(original, old, new) -> list:
+    return [new if elt == old else elt for elt in original]
+
+def replace_all_in_matrix(original, old, new) -> list:
+    return [replace_all_in_list(each_list, old, new) for each_list in original]

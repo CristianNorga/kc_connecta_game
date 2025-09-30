@@ -1,5 +1,5 @@
 from game.models.square_board import SquareBoard
-from game.models.oracle import BaseOracle
+from game.models.oracle.base import BaseOracle
 from game.models.player import Player
 
 def test_play():
