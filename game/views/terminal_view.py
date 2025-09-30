@@ -37,6 +37,19 @@ class TerminalView:
         while response != '1' and response != '2':
             response = input('Por favor, escribe 1 o 2:  ')
         return response
+    
+    def select_difficulty_level(self) -> str:
+        print("""
+        Chose your opponent, human:
+
+        1) Bender: for clowns and wimps
+        2) T-800: you may regret it
+        3) T-1000: Don't even think about it!
+        """)
+        response = ''
+        while response not in ['1', '2', '3']:
+            response = input('Please type 1, 2 or 3: ').strip()
+        return response
 
     def ask_human_name(self) -> str:
         return input('Introduce tu nombre, humano: ')

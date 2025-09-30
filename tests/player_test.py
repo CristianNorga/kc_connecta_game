@@ -1,4 +1,3 @@
-import pytest
 from game.models.square_board import SquareBoard
 from game.models.oracle import BaseOracle
 from game.models.player import Player

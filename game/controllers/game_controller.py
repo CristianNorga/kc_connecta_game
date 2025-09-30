@@ -1,6 +1,7 @@
 
 from enum import Enum, auto
 
+from game.models.oracle import SmartOracle, BaseOracle
 from game.models.square_board import SquareBoard
 from game.controllers.match_controller import Match
 from game.models.player import Player, HumanPlayer
@@ -55,15 +56,23 @@ class Game():
 
     def _configure_by_user(self) -> None:
         self.round_type = self._get_round_type()
+        if self.round_type == RoundType.COMPUTER_VS_HUMAN:
+            self._difficulty_level = self._get_difficulty_level()
         self.match = self._make_match()
 
 
     def _make_match(self) -> Match:
+        _levels = {
+            DifficultyLevel.LOW: BaseOracle(),
+            DifficultyLevel.MEDIUM: SmartOracle(),
+            DifficultyLevel.HIGH: SmartOracle()
+        }
+        
         if self.round_type == RoundType.COMPUTER_VS_COMPUTER:
-            player1 = Player('T-X')
-            player2 = Player('T-1000')
+            player1 = Player('T-X', oracle=SmartOracle())
+            player2 = Player('T-1000', oracle=SmartOracle())
         else:
-            player1 = Player('T-800')
+            player1 = Player('T-800', oracle=_levels[self._difficulty_level])
             player2 = HumanPlayer(name=self.view.ask_human_name(), view=self.view)
         return Match(player1, player2)
 
@@ -74,3 +83,14 @@ class Game():
             return RoundType.COMPUTER_VS_COMPUTER
         else:
             return RoundType.COMPUTER_VS_HUMAN
+        
+    def _get_difficulty_level(self) -> DifficultyLevel:
+        response = self.view.select_difficulty_level()
+        if response == '1':
+            level = DifficultyLevel.LOW
+        elif response == '2':
+            level = DifficultyLevel.MEDIUM
+        else:
+            level = DifficultyLevel.HIGH
+        
+        return level

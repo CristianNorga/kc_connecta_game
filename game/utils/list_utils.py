@@ -35,11 +35,6 @@ def transpose(matrix) -> list:
         return result
 
     for i in range(len(matrix[0])):
-        # new_row = []
-        # for row in matrix:
-        #     if i < len(row):
-        #         new_row.append(row[i])
-        # result.append(new_row)
         result.append(nth_elements(matrix, i))
 
     return result
@@ -64,3 +59,15 @@ def reverse_list(list) -> list:
 
 def reverse_matrix(matrix) -> list:
     return [reverse_list(row) for row in matrix]
+
+def all_same(l) -> bool:
+    if l == []:
+        return True
+    else:
+        same = True
+        first = l[0]
+        for elt in l:
+            if elt != first:
+                same = False
+                break
+        return same 

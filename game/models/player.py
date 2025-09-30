@@ -2,6 +2,7 @@ import random
 from game.utils.board_utils import _is_within_column_range, _is_non_full_column, _is_int
 from game.models.oracle import BaseOracle, ColumnClassification, ColumnRecommendation
 from game.models.square_board import SquareBoard
+from game.utils.list_utils import all_same
 
 class Player:
     def __init__(self, name, char = None, opponent = None, oracle: BaseOracle=BaseOracle()) -> None:
@@ -37,11 +38,14 @@ class Player:
         return (best, recommendations)
 
     def _choose(self, recommendations: list[ColumnRecommendation]) -> ColumnRecommendation:
-        recommendation = next(filter(lambda r: r.classification != ColumnClassification.FULL, recommendations), None)
+        valid = list(filter(lambda r: r.classification != ColumnClassification.FULL, recommendations))
 
-        if recommendation is None:
-            raise Exception("No hay columnas disponibles")
-        return random.choice(recommendations)
+        recommendations = sorted(valid, key=lambda r: r.classification.value, reverse=True)
+
+        if all_same(recommendations):
+            return random.choice(recommendations)
+        else:
+            return recommendations[0]
     
 class HumanPlayer(Player):
     def __init__(self, name, char = None, view=None) -> None:

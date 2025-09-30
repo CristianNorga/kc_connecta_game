@@ -3,21 +3,30 @@ from data.settings import BOARD_LENGTH
 from game.utils.list_utils import transpose, displace_matrix, reverse_matrix
 
 class SquareBoard():
-    """
-    Representa un tablero cuadrado
-    """
-
     @classmethod
     def fromList(cls, list_of_lists) -> 'SquareBoard':
-        """
-        Transforma una lista de listas en una list de LinearBoard
-        """
         board = cls()
         board._columns = list(map(lambda element: LinearBoard.fromList(element), list_of_lists))
         return board
-
+    
+    # dunders
     def __init__(self) -> None:
         self._columns: list[LinearBoard] = [LinearBoard() for i in range(BOARD_LENGTH)]
+        
+    def __repr__(self) -> str:
+        return f'{self.__class__}:{self._columns}'
+    
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, self.__class__):
+            return False
+        
+        return self.columns_as_lists() == other.columns_as_lists()
+    
+    def __len__(self):
+        return len(self._columns)
+    
+    def __hash__(self):
+        return hash(self._columns)
 
     def columns_as_lists(self) -> list[list]:
         return [col.as_list() for col in self._columns]
@@ -26,19 +35,14 @@ class SquareBoard():
         return self._columns
     
     def is_full(self) -> bool:
-        """
-        True si todos los LinearBoards están llenos
-        """
         result = True
         for lb in self._columns:
             result = result and lb.is_full()
         return result
     
-    # Modifica el tablero
     def add(self, column_index: int, user_notation) -> None:
         self._columns[column_index].add(user_notation)
 
-    # Detectra victorias
     def is_victory(self, char) -> bool:
         return self._any_vertical_victory(char) \
             or self._any_horizontal_victory(char) \
@@ -75,13 +79,3 @@ class SquareBoard():
         temp = SquareBoard().fromList(r_matrix)
 
         return temp._any_sinking_victory(char)
-
-    # dunders
-    def __repr__(self) -> str:
-        return f'{self.__class__}:{self._columns}'
-    
-    def __eq__(self, other) -> bool:
-        if not isinstance(other, self.__class__):
-            return False
-        
-        return self.columns_as_lists() == other.columns_as_lists()
